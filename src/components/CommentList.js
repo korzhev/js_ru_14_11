@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
+import CommentPT from '../PropTypesConsts/Comment'
 
 class CommentList extends Component {
     render() {
@@ -24,6 +25,10 @@ class CommentList extends Component {
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return <ul>{commentItems}</ul>
     }
+}
+
+CommentList.propTypes = {
+    comments: PropTypes.arrayOf(CommentPT)
 }
 
 export default toggleOpen(CommentList)

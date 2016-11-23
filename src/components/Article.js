@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import CommentList from './CommentList'
+import ArticlePT from '../PropTypesConsts/Article'
 
 function Article(props) {
     const { article, toggleOpen } = props
@@ -12,11 +13,9 @@ function Article(props) {
 }
 
 Article.propTypes = {
-    article: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        comments: PropTypes.array,
-        text: PropTypes.string
-    }).isRequired
+    article: ArticlePT.isRequired,
+    toggleOpen: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired
 }
 
 function getBody(props) {

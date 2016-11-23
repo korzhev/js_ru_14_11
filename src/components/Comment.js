@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import CommentPT from '../PropTypesConsts/Comment'
 
 function Comment(props) {
     const { title, text, user } = props.comment
@@ -11,8 +12,6 @@ function Comment(props) {
     )
 }
 
-Comment.propTypes = {
-    comment: PropTypes.object.isRequired
-}
+Comment.propTypes = CommentPT.isRequired
 
 export default Comment
