@@ -12,6 +12,7 @@ export default class AddCommentForm extends Component {
 
   handleChange = (event) => {
     const stateDiff = {};
+    //ок, но я б сделал с помощью того-же карринга, вместо ev.target.name
     stateDiff[event.target.name] = event.target.value;
     this.setState(stateDiff);
   }
