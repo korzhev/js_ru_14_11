@@ -3,6 +3,15 @@ import Article from './Article'
 import accordion from '../decorators/accordion'
 import { connect } from 'react-redux'
 
+function filterByDate(from, to) {
+    const now = Date.now();
+    return (new Date(from).getTime() <= now) &&  (new Date(to).getTime() >= now)
+}
+
+function filterById(filterId, id) {
+    return !filterId || !filterId.length || filterId.includes(id)
+}
+
 class ArticleList extends Component {
     static propTypes = {
         articles: PropTypes.array.isRequired,
@@ -12,12 +21,12 @@ class ArticleList extends Component {
     }
 
     componentWillMount() {
-        console.log('---', 'mounting')
+        //console.log('---', 'mounting')
     }
 
     componentDidMount() {
-        console.log('---', 'mounted', this.containerRef)
-        console.log('---', this.refs)
+        //console.log('---', 'mounted', this.containerRef)
+        //console.log('---', this.refs)
     }
 
     componentWillReceiveProps(nexProps) {
@@ -35,17 +44,23 @@ class ArticleList extends Component {
 
 
     render() {
-        const { articles, isOpen, toggleOpenItem } = this.props
+        const { articles, isOpen, toggleOpenItem, filters } = this.props
+        const isDateFilter = !filters.from || !filters.to
+        const dateFilter = filterByDate(filters.from, filters.to);
 
-        const articleItems = articles.map(article => (
-            <li key = {article.id}>
-                <Article
-                    article = {article}
-                    isOpen = {isOpen(article.id)}
-                    toggleOpen = {toggleOpenItem(article.id)}
-                />
-            </li>
-        ))
+        const articleItems = articles
+            .filter(article => (
+                filterById(filters.id, article.id)
+                && (isDateFilter || dateFilter)
+            )).map(article => (
+                <li key = {article.id}>
+                    <Article
+                        article = {article}
+                        isOpen = {isOpen(article.id)}
+                        toggleOpen = {toggleOpenItem(article.id)}
+                    />
+                </li>
+            ))
 
         return (
             <ul ref = {this.getContainerRef}>
@@ -56,5 +71,6 @@ class ArticleList extends Component {
 }
 
 export default connect(state => ({
-    articles: state.articles
+    articles: state.articles,
+    filters: state.filters
 }))(accordion(ArticleList))
