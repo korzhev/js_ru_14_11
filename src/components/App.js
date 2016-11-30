@@ -32,6 +32,7 @@ class App extends Component {
 
     handleChange = selected => {
         this.props.filterArticle(selected.map(o => o.value))
+        //убери этот стейт, 2 источника правды - большое зло
         this.setState({ selected })
     }
 }
