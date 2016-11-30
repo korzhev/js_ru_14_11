@@ -3,9 +3,9 @@ import Article from './Article'
 import accordion from '../decorators/accordion'
 import { connect } from 'react-redux'
 
-function filterByDate(from, to) {
-    const now = Date.now();
-    return (new Date(from).getTime() <= now) &&  (new Date(to).getTime() >= now)
+function filterByDate(from, to, time) {
+    const now = new Date(time).getTime();
+    return (!from || new Date(from).getTime() <= now) && (!to || new Date(to).getTime() >= now)
 }
 
 function filterById(filterId, id) {
@@ -46,12 +46,11 @@ class ArticleList extends Component {
     render() {
         const { articles, isOpen, toggleOpenItem, filters } = this.props
         const isDateFilter = !filters.from || !filters.to
-        const dateFilter = filterByDate(filters.from, filters.to);
 
         const articleItems = articles
             .filter(article => (
                 filterById(filters.id, article.id)
-                && (isDateFilter || dateFilter)
+                && (isDateFilter || filterByDate(filters.from, filters.to, article.date))
             )).map(article => (
                 <li key = {article.id}>
                     <Article
