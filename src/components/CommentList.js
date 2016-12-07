@@ -46,7 +46,7 @@ class CommentList extends Component {
 
     getBody() {
         const { comments, isOpen } = this.props
-        const commentForm = <NewCommentForm />
+        const commentForm = <NewCommentForm articleId={this.props.articleId}/>
         if (!isOpen || !comments.length) return <div>{commentForm}</div>
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return <div><ul>{commentItems}</ul>{commentForm}</div>
@@ -54,5 +54,6 @@ class CommentList extends Component {
 }
 
 export default connect((state, props) => ({
-    comments: props.commentIds.map(id => state.comments.get(id))
+    comments: props.commentIds.map(id => state.comments.get(id)),
+    articleId: props.articleId
 }))(toggleOpen(CommentList))

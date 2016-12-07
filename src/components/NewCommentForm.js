@@ -17,7 +17,8 @@ class NewCommentForm extends Component {
 
     handleSubmit = ev => {
         ev.preventDefault()
-        console.log('---', 'adding comment')
+        const {text, user} = this.state
+        this.props.addComment(this.props.articleId, text, user);
         this.setState({
             user: '',
             text: ''
@@ -36,5 +37,5 @@ class NewCommentForm extends Component {
 }
 
 export default connect(null, {
-  addComment
+    addComment
 })(NewCommentForm)
