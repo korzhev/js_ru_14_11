@@ -38,6 +38,7 @@ class Article extends Component {
         return (
             <div>
                 <p>{article.text}</p>
+                {/*просто передай туда article*/}
                 <CommentList commentIds = {article.comments} articleId = {article.id} ref = "comments" />
             </div>
         )
