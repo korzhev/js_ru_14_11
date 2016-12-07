@@ -13,6 +13,7 @@ export default (articlesState = defaultArticles, action) => {
             return articlesState.delete(payload.articleId)
         case ADD_COMMENT:
             return articlesState.updateIn([payload.articleId], article => {
+                //не мутируй данные! Мы для этого даже immutable завели
                 article.comments.push(payload.id)
                 return article
             });
