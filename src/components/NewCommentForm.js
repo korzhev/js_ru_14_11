@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react'
+import { addComment } from '../AC/comments.js'
+import { connect } from 'react-redux'
 
 class NewCommentForm extends Component {
     state = {
@@ -33,4 +35,6 @@ class NewCommentForm extends Component {
     }
 }
 
-export default NewCommentForm
+export default connect(null, {
+  addComment
+})(NewCommentForm)
