@@ -1,4 +1,4 @@
-import { ADD_COMMENT, START, SUCCESS, FAIL, LOAD_ALL_COMMENTS } from '../constants'
+import { ADD_COMMENT, START, SUCCESS, FAIL, LOAD_COMMENTS } from '../constants'
 import jquery from 'jquery'
 
 
@@ -13,21 +13,20 @@ export function addComment(comment, articleId) {
 }
 
 export function loadComments(id) {
-    console.log(id)
     return (dispatch) => {
         dispatch({
-            type: LOAD_ALL_COMMENTS + START,
+            type: LOAD_COMMENTS + START,
             payload: { id }
         })
 
         setTimeout(() => {
             jquery.get('/api/comment/', { article: id })
               .done(response => dispatch({
-                  type: LOAD_ALL_COMMENTS + SUCCESS,
-                  payload: { id, comment: response }
+                  type: LOAD_COMMENTS + SUCCESS,
+                  payload: { id, response },
               }))
               .fail(error => dispatch({
-                  type: LOAD_ALL_COMMENTS + FAIL,
+                  type: LOAD_COMMENTS + FAIL,
                   payload: { id, error}
               }))
         }, 1000)
