@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { addComment } from '../AC/comments'
+import { addComment, loadComments } from '../AC/comments'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
@@ -20,8 +20,9 @@ class CommentList extends Component {
     }
 
 
-    componentWillReceiveProps() {
-        //console.log('---', 'CL receiving props')
+    componentWillReceiveProps(nextProps) {
+        console.log('----', nextProps)
+        if (nextProps.isOpen && !this.props.isOpen) this.props.loadComments(this.props.article.id)
     }
 
     componentWillUpdate() {
@@ -41,6 +42,7 @@ class CommentList extends Component {
 
     getButton() {
         const { comments, isOpen, toggleOpen } = this.props
+        console.log(comments)
         if ( !comments.length) return <span>No comments yet</span>
         return <a href="#" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments</a>
     }
@@ -55,5 +57,6 @@ class CommentList extends Component {
 }
 
 export default connect((state, props) => ({
-    comments: (props.article.comments || []).map(id => state.comments.get(id))
-}), { addComment })(toggleOpen(CommentList))
+    comments: (props.article.comments || []).map(id => state.comments.entities.get(id))
+    // comments: (props.article.comments || []).map(id => state.comments.get(id))
+}), { addComment, loadComments })(toggleOpen(CommentList))
