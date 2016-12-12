@@ -13,10 +13,11 @@ const defaultState = arrayToMap([], CommentModel);
 
 export default (comments = defaultState, action) => {
     const { type, payload, generatedId } = action
-
+    
     switch (type) {
         case ADD_COMMENT:
             return comments.set(generatedId, {...payload.comment, id: generatedId})
+        //стоило еще индикацию загрузки сделать
         case LOAD_COMMENTS + SUCCESS:
             return comments.merge(arrayToMap(payload.response, CommentModel))
     }
