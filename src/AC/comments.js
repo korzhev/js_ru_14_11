@@ -20,7 +20,7 @@ export function loadComments(id) {
         })
 
         setTimeout(() => {
-              //ок, но луче было загружать не все сразу. В часте обсуждали нужный endpoint
+              //ок, но луче было загружать не все сразу. В чате обсуждали нужный endpoint
             jquery.get('/api/comment/', { article: id })
               .done(response => dispatch({
                   type: LOAD_COMMENTS + SUCCESS,
