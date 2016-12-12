@@ -24,6 +24,7 @@ class CommentList extends Component {
     componentWillReceiveProps(nextProps) {
 
         // this.props.loadComments(this.props.article.id)
+        //в идеале еще проверить, не грузишь ли ты эти комменты сейчас
         if (nextProps.isOpen && !this.props.isOpen && !this.props.comments.every(c => !!c)) {
             this.props.loadComments(this.props.article.id)
         }
