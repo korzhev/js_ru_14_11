@@ -1,4 +1,4 @@
-import { Map, Record, fromJS } from 'immutable'
+import { Map, Record, fromJS, List } from 'immutable'
 
 export function arrayToMap(arr, Model) {
     return arr.reduce((acc, el) => {
